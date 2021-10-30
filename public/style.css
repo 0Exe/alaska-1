@@ -1,0 +1,113 @@
+/* roboto */
+@import url(https://fonts.googleapis.com/css?family=Roboto:400);
+
+:root {
+    --primary: #00a0b0;
+    --secondary: #e4e4e4;
+
+    --bg: #1d2122;
+    --dark: #131616;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    margin: 0;
+    background-color: var(--bg);
+    color: var(--secondary);
+}
+
+.message {
+    display: flex;
+    background-color: var(--dark);
+    color: var(--secondary);
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.content {
+    margin: 50px;
+}
+
+.input {
+    background-color: var(--dark);
+    border-radius: 6px;
+    border: 2px solid transparent;
+    color: var(--secondary);
+
+    font-size: 1.5rem;
+    padding: 10px;
+    outline: none;
+
+    width: 30%;
+}
+.input:focus {
+    border: 2px solid var(--primary);
+}
+
+.btn {
+    background-color: var(--dark);
+    border-radius: 6px;
+    border: 2px solid transparent;
+    color: var(--secondary);
+    padding: 10px;
+
+    font-size: 1.5rem;
+    outline: none;
+    cursor: pointer;
+}
+.btn:hover {
+    border: 2px solid var(--primary);
+}
+
+.container {
+    width: 50%;
+    background-color: rgb(24, 25, 27);
+    border-radius: 6px;
+    padding: 20px;
+
+    height: 80vh;
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.inputs {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 10px;
+    height: 7%;
+}
+
+.messages {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 93%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    /* make scroll bar dark */
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    background-color: var(--dark);
+}
+
+.nav {
+    width: calc(100vw - 20px);
+    padding: 10px;
+    background-color: var(--dark);
+    color: var(--primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Alaska</title>
+
+    <meta translate="no">
+
+    <!--<script type="module" src="https://cdn.jsdelivr.net/npm/squaller@1.1.1/src/squaller.js" defer></script>-->
+
+    <link rel="stylesheet" href="http://localhost:3000/style.css">
+  </head>
+  <body id="root">
+    <squallerComponent name="message">
+        <span class="message">${content}</span>
+    </squallerComponent>
+
+    <div class="nav">
+      <div>Alaska</div>
+    </div>
+
+    <div class="content">
+      <div class="container">
+        <div id="messages" class="messages">
+        
+        </div>
+
+        <div class="inputs">
+          <input type="text" placeholder="message..." class="input" id="message">
+          <input type="submit" value="Send" class="btn" onclick="send()">
+        </div>
+      </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+function send() {
+    const messages = document.getElementById('messages');
+    // <message sail="content: hello"></message>
+
+
+    const message = document.getElementById('message');
+    const message_content = message.value;
+    message.value = "";
+    message.focus();
+
+    //messages.innerHTML += `<message sail="content: ${message_content}"></message>`;
+
+    socket.emit('chat message', message_content);
+    
+    main();
+}
+
+
+// whenever enter is pressed, send the message
+document.getElementById('message').addEventListener('keypress', function(e) {
+    if(e.keyCode == 13) {
+        send();
+    }
+});
+
+
+var socket = io();
+
+socket.on('chat message', function(msg) {
+    messages.innerHTML = `<message sail="content: ${msg}"></message>` + messages.innerHTML;
+    main()
+});
+
+socket.on('user', function(msg) {
+    messages.innerHTML = msg + messages.innerHTML;
+});
+
+
+// SQUALLER.js
+
+
+// js module -- defer
+let components = {};
+
+function createComponents() {
+    let createdComponents = document.querySelectorAll("squallerComponent");
+    
+    for (let i of createdComponents) {
+        let name = i.getAttribute("name").toLocaleLowerCase();
+        components[name] = i.innerHTML;
+    }
+}
+
+function loadComponents() {
+
+    for (let i in components) {
+        let obj = document.getElementsByTagName(i);
+        for (let j of obj) {
+
+            let code = components[j.tagName.toLocaleLowerCase()];
+
+            // remove all spacing except for spacing between text
+            let sail = j.getAttribute("sail")
+
+            // todo fix this formatting bc rn it only works for one space AFTER ; and : -- weird
+            sail = sail.replaceAll(": ", ":");
+            sail = sail.replaceAll("; ", ";");
+            
+
+            sail = sail.split(";")
+            for (let sail_name of sail) {
+                code = code.replace("${" + sail_name.split(":")[0] + "}", sail_name.split(":")[1]);
+            }
+
+            j.innerHTML = code;
+        }
+    }
+}
+
+function hideComponents() {
+    for (let i of document.getElementsByTagName("squallerComponent")) {
+        i.style.display = "none";
+    }
+}
+
+function main() {
+    createComponents();
+    loadComponents();
+    hideComponents();
+}
+
+window.onload = main();
+    </script>
+  </body>
+</html>

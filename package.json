@@ -1,0 +1,12 @@
+{
+    "name": "alaska",
+    "version": "1.0.0",
+    "description": "The Alaska chat app!",
+    "main": "main.js",
+    "author": "0Exe",
+    "license": "MIT",
+    "dependencies": {
+        "express": "^4.17.1",
+        "socket.io": "^4.3.1"
+    }
+}
